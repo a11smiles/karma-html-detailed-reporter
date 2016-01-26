@@ -1,2 +1,2 @@
-# karma-jasmine-reporter
-Karma Jasmine HTML Reporter
+# karma-html-detailed-reporter
+Karma HTML Detailed Reporter

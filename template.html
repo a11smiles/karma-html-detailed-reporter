@@ -1,0 +1,56 @@
+<html>
+  <style>
+      html, body#REPORT_TEMPLATE {font-family: Arial, Helvetica, sans-serif;padding:0px;margin:0px;}
+      #REPORT_TEMPLATE #header {height:100px;margin:0px;padding:15px;background-color:#36f;color:#fff;}
+      #REPORT_TEMPLATE #title {font-size:18px;}
+      #REPORT_TEMPLATE #passed {margin-top:25px;}
+      #REPORT_TEMPLATE span.result {display:inline-block;margin-right:20px;background-color:#fff;padding:2px 8px;color:#000;}
+      #REPORT_TEMPLATE table {border:1px solid #ccc;border-collapse:collapse;width:100%;}
+      #REPORT_TEMPLATE th {background-color:#acf;}
+      #REPORT_TEMPLATE td,th {border:1px solid #fff;padding:1px 3px;font-size:14px;}
+      #REPORT_TEMPLATE td.status {width:100px;padding-left:10px;}
+      #REPORT_TEMPLATE td.status.isPass {background-color:#9acd32;}
+      #REPORT_TEMPLATE td.status.isFail {background-color:red;}
+      #REPORT_TEMPLATE td.status.isSkip {background-color:#ccc;}
+      #REPORT_TEMPLATE td.error {padding-top:10px;}
+      #REPORT_TEMPLATE #timestamp {font-size:12px;}
+  </style>
+  <body id="REPORT_TEMPLATE">
+  <div id="header">
+  <div id="title">Jasmine Test Results</div>
+  <div id="timestamp"></div>
+  <div id="passed">Total Tests: <span class="result">{{Total_Test_Count}}</span> Passed: <span class="result">{{Total_Pass_Count}}</span> </div>
+  </div>
+  {{Test_Results}}
+ 
+ 
+  <!--
+  <table>
+    <tr>
+      <th>Status</th>
+      <th>Test</th>
+    </tr>
+ 
+    
+    <xsl:for-each select="Tests/Test">
+      <xsl:sort select="Outcome"/>
+      <tr>
+	  <xsl:if test="Outcome = 'Passed'">
+          <td class="status isPass">Passed</td>
+	  </xsl:if>
+	  <xsl:if test="Outcome = 'Skipped'">
+          <td class="status isSkip">Skipped</td>
+	  </xsl:if>
+	  <xsl:if test="Outcome = 'Failed'">
+          <td class="status isFail" rowspan="2">Failed</td>
+	  </xsl:if>
+      <td><xsl:value-of select="Name"/></td>
+    </tr>
+	<xsl:if test="Outcome = 'Failed'">
+          <tr><td class="error"><pre><xsl:value-of select="normalize-space(ErrorStackTrace)"/></pre></td></tr>
+	  </xsl:if>
+    </xsl:for-each>
+  </table>
+  -->
+  </body>
+  </html>
