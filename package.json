@@ -1,6 +1,6 @@
 {
     "name": "karma-html-detailed-reporter",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A Karma plugin. Report results in a detailed HTML page.",
     "main": "index.js",
     "repository": {
@@ -27,6 +27,7 @@
         "karma": ">=0.9"
     },
     "dependencies": {
-        "xmlbuilder": "0.4.2"  
+        "xmlbuilder": "0.4.2",
+        "bootstrap": "^3.3.6"  
     }
 }
