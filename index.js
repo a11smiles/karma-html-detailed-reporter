@@ -17,6 +17,7 @@ var HtmlDetailedReporter = function (baseReporterDecorator, config, logger, help
 	var fileWritingFinished = function () { };
     var allMessages = [];
     var passCnt, skipCnt, failCnt;
+    var specResults = [];
 
     baseReporterDecorator(this);
     
@@ -28,9 +29,12 @@ var HtmlDetailedReporter = function (baseReporterDecorator, config, logger, help
         passCnt = 0;
         skipCnt = 0;
         failCnt = 0;
+        specResults = [];
         
 		xml = builder.create('table');
+        xml.att('class', 'table');
         var header = xml.ele('tr');
+        header.ele('th', '');
         header.ele('th', 'Status');
         header.ele('th', 'Test');
 	};
@@ -55,11 +59,13 @@ var HtmlDetailedReporter = function (baseReporterDecorator, config, logger, help
             helper.mkdirIfNotExists(path.dirname(outputFile), function () {
 
                 if (!!template) {
+                    formatResults();
+                    
                     template = template.replace('{{DateTime_Stamp}}', formatTimestamp());
                     template = template.replace('{{Total_Test_Count}}', passCnt + skipCnt + failCnt + '');
                     template = template.replace('{{Total_Pass_Count}}', passCnt + '');
-                    template = template.replace('{{Total_Skip_Count}}', passCnt + '');
-                    template = template.replace('{{Total_Fail_Count}}', passCnt + '');
+                    template = template.replace('{{Total_Skip_Count}}', skipCnt + '');
+                    template = template.replace('{{Total_Fail_Count}}', failCnt + '');
                     template = template.replace('{{Test_Results}}', xml.toString({pretty:true}));
                     
                     fs.writeFile(outputFile, template, function (err) {
@@ -79,45 +85,7 @@ var HtmlDetailedReporter = function (baseReporterDecorator, config, logger, help
 	};
 
 	this.specSuccess = this.specSkipped = this.specFailure = function (browser, result) {
-		var row = xml.ele('tr');
-
-		if (result.suite && result.suite[0] === 'Jasmine__TopLevel__Suite') {
-			result.suite.shift();
-		}
-		
-        var statusCell = row.ele('td');
-//console.log('Suite:', result.suite);        
-//console.log('Name:', result.description);     
-//console.log('Result:', result);   
-        if (result.skipped) {
-            skipCnt++;
-            statusCell.att('class', 'status isSkip');
-            statusCell.text('Skipped');
-
-            row.ele('td', result.description);
-        }
-        else if (result.success) {
-            passCnt++;
-            statusCell.att('class', 'status isPass');
-            statusCell.text('Passed');
-            
-            row.ele('td', result.description);
-        }
-        else {
-            failCnt++;
-            statusCell.att('class', 'status isFail');
-            statusCell.att('rowspan', '2');
-            statusCell.text('Failed');
-
-            row.ele('td', result.description);
-            
-            
-            var errors = '';
-            result.log.forEach(function(err) {
-                errors += formatError(err) + '\r\n\r\n';
-            });
-            xml.ele('tr').ele('td', {'class': 'error'}).ele('pre').text(errors);
-        }
+        specResults.push(result);
 	};
 
 	// wait for writing all the xml files, before exiting
@@ -139,6 +107,59 @@ var HtmlDetailedReporter = function (baseReporterDecorator, config, logger, help
         var strTime =  hours + ':' + minutesStr + ':' + secondsStr;
     
         return strTime;
+    }
+    
+    function formatResults()
+    {
+        for (var i = 0; i < specResults.length; i++) {
+            var result = specResults[i];
+
+            //console.log('Result:', result);   
+            
+            var row = xml.ele('tr');
+
+            if (result.suite && result.suite[0] === 'Jasmine__TopLevel__Suite') {
+                result.suite.shift();
+            }
+            var expandCell = row.ele('td', {'class':'expand'});
+            
+            var statusCell = row.ele('td');
+
+            if (result.skipped) {
+                skipCnt++;
+                row.att('class', 'active')
+                statusCell.att('class', 'status');
+                statusCell.text('Skipped');
+
+                row.ele('td', result.suite.join(' :: ') + ' :: ' + result.description);
+            }
+            else if (result.success) {
+                passCnt++;
+                row.att('class', 'success')
+                statusCell.att('class', 'status');
+                statusCell.text('Passed');
+                
+                row.ele('td', result.suite.join(' :: ') + ' :: ' + result.description);
+            }
+            else {
+                failCnt++;
+                row.att('class', 'danger')
+                expandCell.att('rowspan', '2');
+                statusCell.att('class', 'status');
+                statusCell.att('rowspan', '2');
+                statusCell.text('Failed');
+
+                row.ele('td', result.suite.join(' :: ') + ' :: ' + result.description);
+                
+                var errors = '';
+                result.log.forEach(function(err) {
+                    errors += formatError(err) + '\r\n\r\n';
+                });
+                var errorRow = xml.ele('tr');
+                errorRow.att('class', 'danger')
+                errorRow.ele('td', {'class': 'error'}).ele('pre').text(errors);
+            }        
+        }
     }
 }    
 
