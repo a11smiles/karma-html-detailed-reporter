@@ -2,12 +2,11 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Test Results</title>
-        <link rel="stylesheet" href="./node_modules/karma-html-detailed-reporter/node_modules/bootstrap/dist/css/bootstrap.css" />
+        <title>Test Results {{Browser}}</title>
+        <link rel="stylesheet" href="{{Base_Path}}/bootstrap/dist/css/bootstrap.css" />
         <style>
             html, body#REPORT_TEMPLATE {height:100%;font-family: Arial, Helvetica, sans-serif;padding:0px;margin:0px;background:#efefef;}
-            #REPORT_TEMPLATE #title {font-size:18px;}
-            #REPORT_TEMPLATE #passed {margin-top:25px;}
+            #REPORT_TEMPLATE #browser {font-size:12px;}
             #REPORT_TEMPLATE span.result {display:inline-block;margin-right:20px;background-color:#fff;padding:2px 8px;color:#000;}
             #REPORT_TEMPLATE table {border:1px solid #ccc;border-collapse:collapse;width:100%;}
             #REPORT_TEMPLATE th {background-color:#acf;}
@@ -31,7 +30,7 @@
             #REPORT_TEMPLATE .menu li {list-style-type: none;}
             #REPORT_TEMPLATE #refreshBtn {outline:none;} 
         </style>
-        <script src="./node_modules/karma-html-detailed-reporter/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="{{Base_Path}}/jquery/dist/jquery.min.js"></script>
         <script>
             var reload = true;
            
@@ -65,11 +64,11 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <span class="navbar-brand">Test Results</a>
+                <span class="navbar-brand">Test Results <span id="browser">{{Browser}}</span></a>
             </div>
             <div class="collapse navbar-collapse">
                 <div id="refreshToggle" class="pull-right">
-                    <span id="timestamp">9:49:22</span>
+                    <span id="timestamp">{{DateTime_Stamp}}</span>
                     <button class="btn btn-danger" id="refreshBtn">Disable Refresh</button>
                 </div>
             </div>
@@ -79,37 +78,36 @@
     <div class="container-fluid" style="height:100%;">
         <div class="row" style="height:100%;">
             <div class="col-sm-2" style="padding:0px;height:100%;">
-                <div class="whiteout" style="height:100%;padding:75px 15px;">
+                <div class="whiteout col-sm-2" style="height:100%;padding:75px 15px;position:fixed;">
                     <ul class="menu">
                         <li><a href="#Overview">Overview</a></li>
                         <li><a href="#Details">Details</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-10" style="padding-top:75px;">
-                <a name="Overview"></a>
+            <div class="col-sm-10" style="padding-top:75px;" id="Overview">
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="countBox info">
-                            <h2>5</h2>
+                            <h2>{{Total_Test_Count}}</h2>
                             Total Tests
                         </div>
                     </div>
                     <div class="col-sm-2 col-sm-offset-1">
                         <div class="countBox success">
-                            <h2>3</h2>
+                            <h2>{{Total_Pass_Count}}</h2>
                             Passed Tests
                         </div>
                     </div>
                     <div class="col-sm-2 col-sm-offset-1">
                         <div class="countBox danger">
-                            <h2>1</h2>
+                            <h2>{{Total_Fail_Count}}</h2>
                             Failed Tests
                         </div>
                     </div>
                     <div class="col-sm-2 col-sm-offset-1">
                         <div class="countBox active">
-                            <h2>1</h2>
+                            <h2>{{Total_Skip_Count}}</h2>
                             Skipped Tests
                         </div>
                     </div>
@@ -117,7 +115,7 @@
                 <div class="row clear">
                     <div class="col-sm-12">
                         <div class="cold-sm-12 whiteout">
-                            <h3><a name="Details"></a>Details</h3>
+                            <h3 id="Details"><Details</h3>
                             {{Test_Results}}
                         </div>
                     </div> 
@@ -125,6 +123,6 @@
             </div>
         </div>
     </div>
-    <script src="./node_modules/karma-html-detailed-reporter/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{Base_Path}}/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
   </html>
