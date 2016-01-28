@@ -65,5 +65,5 @@ module.exports = function(config) {
 ## License
 Karma HTML Detailed Reporter is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
-### Development
+## Development
 The Karma HTML Detailed Reporter project is developed and maintained by [Joshua Davis](http://jdav.is).
