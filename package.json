@@ -2,7 +2,7 @@
     "name": "karma-html-detailed-reporter",
     "version": "0.0.0-0",
     "description": "A Karma plugin. Report results in a detailed HTML page.",
-    "main": "index.js",
+    "main": "lib/index.js",
     "repository": {
       "type": "git",
       "url": "git://github.com/a11smiles/karma-html-detailed-reporter.git"
