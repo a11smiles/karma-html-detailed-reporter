@@ -62,6 +62,11 @@ module.exports = function(config) {
 **Default:** `true`  
 **Description:** Determines whether the results are split into a separate file for each browser.  
 
+#### useHostedBootstrap
+**Type:** Boolean  
+**Default:** `false`  
+**Description:** Determines whether to use the hosted versions of Boostrap and jQuery.  If testing within a CI build (e.g. TFS, Jenkins, TeamCity), setting this to `true` would allow you to see the reports while the builders do not maintain node modules.  
+
 ## License
 Karma HTML Detailed Reporter is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
