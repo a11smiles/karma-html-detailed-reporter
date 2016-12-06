@@ -52,10 +52,20 @@ module.exports = function(config) {
 **NOTE:** At least one browser is required for the reporter to run.  Shown above are examples of two possible options (e.g. PhantomJS, Chrome).
          
 ## Options
+#### autoRefresh
+**Type:** Boolean  
+**Default:** `true`  
+**Description:** Enables/disables the refresh to start automatically.
+
 #### dir
 **Type:** String  
 **Default:** `./_reports`  
 **Description:** Sets the reports output base path.  
+
+#### refreshTimeout
+**Type:** Number  
+**Default:** `1000`  
+**Description:** Sets the refresh timeout (in milliseconds) for the page.
 
 #### splitResults
 **Type:** Boolean  

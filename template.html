@@ -32,31 +32,40 @@
         </style>
         <script src="{{jquery_Path}}/jquery.min.js"></script>
         <script>
-            var reload = true;
+            var reload = {{Auto_Reload}};
            
             $(document).ready(function() {
+                setState(!reload);                
+
                 $('#refreshBtn').click(function() {
+                    setState(reload);
                     if (reload) {
-                        $('#refreshBtn').removeClass('btn-danger');
-                        $('#refreshBtn').addClass('btn-success');
-                        $('#refreshBtn').text('Enable Refresh');
                         reload = false;
                     } else {
-                        $('#refreshBtn').removeClass('btn-success');
-                        $('#refreshBtn').addClass('btn-danger');                        
-                        $('#refreshBtn').text('Disable Refresh');
                         reload = true;
                         refresh();
                     }
                 });
-                
+
+                var setState = function(status) {
+                    if (status) {
+                        $('#refreshBtn').removeClass('btn-danger');
+                        $('#refreshBtn').addClass('btn-success');
+                        $('#refreshBtn').text('Enable Refresh');
+                    } else {
+                        $('#refreshBtn').removeClass('btn-success');
+                        $('#refreshBtn').addClass('btn-danger');                        
+                        $('#refreshBtn').text('Disable Refresh');
+                    }                    
+                }
+
                 var refresh = function() {
                     if (reload) {
                         location.reload();
                     }
                 };
                 
-                setTimeout(refresh, 1000);
+                setTimeout(refresh, {{Refresh_Timeout}});
             })
         </script>
     </head>
