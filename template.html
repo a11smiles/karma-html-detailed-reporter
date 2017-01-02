@@ -32,8 +32,33 @@
         </style>
         <script src="{{jquery_Path}}/jquery.min.js"></script>
         <script>
-            var reload = {{Auto_Reload}};
-           
+            var reload = shouldReload();
+
+            var shouldReload = function() {
+                if (location.search != null && location.search != undefined && location.search.length > 0)
+                    return location.search.substr(1) === 'true' ? true : false;
+                else
+                    return {{Auto_Reload}};
+            };
+
+            var setState = function(status) {
+                if (status) {
+                    $('#refreshBtn').removeClass('btn-danger');
+                    $('#refreshBtn').addClass('btn-success');
+                    $('#refreshBtn').text('Enable Refresh');
+                } else {
+                    $('#refreshBtn').removeClass('btn-success');
+                    $('#refreshBtn').addClass('btn-danger');                        
+                    $('#refreshBtn').text('Disable Refresh');
+                }                    
+            };
+
+            var refresh = function() {
+                if (reload) {
+                    location.search = reload;
+                }
+            };
+
             $(document).ready(function() {
                 setState(!reload);                
 
@@ -47,26 +72,8 @@
                     }
                 });
 
-                var setState = function(status) {
-                    if (status) {
-                        $('#refreshBtn').removeClass('btn-danger');
-                        $('#refreshBtn').addClass('btn-success');
-                        $('#refreshBtn').text('Enable Refresh');
-                    } else {
-                        $('#refreshBtn').removeClass('btn-success');
-                        $('#refreshBtn').addClass('btn-danger');                        
-                        $('#refreshBtn').text('Disable Refresh');
-                    }                    
-                }
-
-                var refresh = function() {
-                    if (reload) {
-                        location.reload();
-                    }
-                };
-                
                 setTimeout(refresh, {{Refresh_Timeout}});
-            })
+            });
         </script>
     </head>
   <body id="REPORT_TEMPLATE">
