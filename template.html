@@ -34,7 +34,7 @@
         <script>
             var reload = shouldReload();
 
-            var shouldReload = function() {
+            function shouldReload() {
                 if (location.search != null && location.search != undefined && location.search.length > 0)
                     return location.search.substr(1) === 'true' ? true : false;
                 else
@@ -55,7 +55,7 @@
 
             var refresh = function() {
                 if (reload) {
-                    location.search = reload;
+                    location.reload(true);
                 }
             };
 
