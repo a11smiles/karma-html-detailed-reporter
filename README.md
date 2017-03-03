@@ -52,7 +52,7 @@ module.exports = function(config) {
 **NOTE:** At least one browser is required for the reporter to run.  Shown above are examples of two possible options (e.g. PhantomJS, Chrome).
          
 ## Options
-#### autoRefresh
+#### autoReload
 **Type:** Boolean  
 **Default:** `true`  
 **Description:** Enables/disables the refresh to start automatically.
