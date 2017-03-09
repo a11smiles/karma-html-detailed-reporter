@@ -72,6 +72,21 @@ module.exports = function(config) {
 **Default:** `true`  
 **Description:** Determines whether the results are split into a separate file for each browser.  
 
+#### showSuccess
+**Type:** Boolean  
+**Default:** `true`  
+**Description:** Determines whether the detailed results of the successfull tests are default shown or hidden in the browser (you are able to toggle live in the browser)
+
+#### showFailed
+**Type:** Boolean  
+**Default:** `true`  
+**Description:** Determines whether the detailed results of the failed tests are default shown or hidden in the browser (you are able to toggle live in the browser)
+
+#### showSkipped
+**Type:** Boolean  
+**Default:** `true`  
+**Description:** Determines whether the detailed results of the skipped tests are default shown or hidden in the browser (you are able to toggle live in the browser)
+
 #### useHostedBootstrap
 **Type:** Boolean  
 **Default:** `false`  
