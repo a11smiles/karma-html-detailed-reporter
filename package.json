@@ -26,8 +26,8 @@
     "dependencies": {
         "karma": ">=0.13.19",
         "xmlbuilder": "0.4.2",
-        "bootstrap": "^3.3.6",
-        "jquery": "^2.2.0",
+        "bootstrap": "^4.0.0",
+        "jquery": "^3.0.0",
         "istanbul": "0.4.2" 
     }
 }
