@@ -4,14 +4,14 @@
     "description": "A Karma plugin. Report results in a detailed HTML page.",
     "main": "lib/index.js",
     "repository": {
-      "type": "git",
-      "url": "git://github.com/a11smiles/karma-html-detailed-reporter.git"
+        "type": "git",
+        "url": "git://github.com/a11smiles/karma-html-detailed-reporter.git"
     },
     "keywords": [
-      "karma",
-      "karma-plugin",
-      "karma-reporter",
-      "html" 
+        "karma",
+        "karma-plugin",
+        "karma-reporter",
+        "html"
     ],
     "author": {
         "name": "Joshua Davis",
@@ -28,6 +28,6 @@
         "xmlbuilder": "0.4.2",
         "bootstrap": "^4.0.0",
         "jquery": "^3.0.0",
-        "istanbul": "0.4.2" 
+        "istanbul": "0.4.5"
     }
 }
