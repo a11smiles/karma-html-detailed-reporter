@@ -26,8 +26,9 @@
     "dependencies": {
         "karma": ">=0.13.19",
         "xmlbuilder": "0.4.2",
-        "bootstrap": "^4.0.0",
+        "bootstrap": "^4.3.1",
         "jquery": "^3.0.0",
-        "istanbul": "0.4.5"
+        "istanbul": "0.4.5",
+        "@fortawesome/fontawesome-free": "^5.8.1"
     }
 }

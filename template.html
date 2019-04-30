@@ -5,28 +5,31 @@
 		<meta charset="utf-8" />
         <title>Test Results {{Browser}}</title>
         <link rel="stylesheet" href="{{bootstrap_Path}}/css/bootstrap.css" />
+        <link rel="stylesheet" href="{{fontawesome_Path}}/css/all.css" />
         <style>
             html, body#REPORT_TEMPLATE {height:100%;font-family: Arial, Helvetica, sans-serif;padding:0px;margin:0px;background:#efefef;}
             #REPORT_TEMPLATE #browser {font-size:12px;}
             #REPORT_TEMPLATE span.result {display:inline-block;margin-right:20px;background-color:#fff;padding:2px 8px;color:#000;}
-            #REPORT_TEMPLATE table {border:1px solid #ccc;border-collapse:collapse;width:100%;}
+            #REPORT_TEMPLATE table {border:1px solid #ccc;border-collapse:collapse;width:100%;table-layout: fixed;}
             #REPORT_TEMPLATE th {background-color:#acf;}
-            #REPORT_TEMPLATE td,th {border:1px solid #fff;font-size:14px;}
-            #REPORT_TEMPLATE td.status {width:30px;padding-left:10px;}
+            #REPORT_TEMPLATE td,th {border:1px solid #fff;font-size:14px;width:auto;}
+            #REPORT_TEMPLATE td.expand {width:25px;}
             #REPORT_TEMPLATE td.status {width:100px;padding-left:10px;}
-            #REPORT_TEMPLATE td.error {padding-top:10px;}
+            #REPORT_TEMPLATE td.error {padding:0px;background-color: #ffffff;}
+            #REPORT_TEMPLATE td.error pre {padding:10px;border:1px solid #721c24;margin-bottom:0px;}
+            #REPORT_TEMPLATE tr.alert-active > td { background-color:#f5f5f5; }
             #REPORT_TEMPLATE #timestamp {font-size:12px;margin-left:10px;}
-            #REPORT_TEMPLATE #refreshToggle {padding-top:8px;color:#fff;}
+            #REPORT_TEMPLATE #refreshToggle {color:#fff;}
             #REPORT_TEMPLATE #refreshToggle button {margin-left:10px;}
-            #REPORT_TEMPLATE .countBox {height:75px;text-align:center;color:#aaa;border:1px solid #fff;font-size:.9em;}
-            #REPORT_TEMPLATE .countBox h2 { color:#000;margin:10px 0px 5px 0px;}
-            #REPORT_TEMPLATE .countBox.success {background-color:#dff0d8;}
-            #REPORT_TEMPLATE .countBox.info {background-color:#d9edf7;}
-            #REPORT_TEMPLATE .countBox.active {background-color:#f5f5f5;}
-            #REPORT_TEMPLATE .countBox.danger {background-color:#f2dede;}
+            #REPORT_TEMPLATE .countBox {height:100px;text-align:center;color:#aaa;border:1px solid #fff;font-size:.9em;}
+            #REPORT_TEMPLATE .countBox h2 { color:#000;margin:15px 0px 5px 0px;}
+            #REPORT_TEMPLATE .countBox.alert-success {background-color:#dff0d8;}
+            #REPORT_TEMPLATE .countBox.alert-info {background-color:#d9edf7;}
+            #REPORT_TEMPLATE .countBox.alert-active {background-color:#f5f5f5;}
+            #REPORT_TEMPLATE .countBox.alert-danger {background-color:#f2dede;}
             #REPORT_TEMPLATE .whiteout {background-color:#fff;padding:1px 15px;}
             #REPORT_TEMPLATE .row.clear {margin-top:45px;}
-            #REPORT_TEMPLATE h3 {margin-bottom:30px;}
+            #REPORT_TEMPLATE h3 {margin-top:20px;margin-bottom:20px;color:#666;}
             #REPORT_TEMPLATE .menu {list-style-type: none;padding-left:10px;font-size:1.1em;}
             #REPORT_TEMPLATE .menu li {list-style-type: none;}
             #REPORT_TEMPLATE #refreshBtn {outline:none;} 
@@ -91,13 +94,13 @@
             var displayItems = function(id){
                 var visible = visibleStates[id];
                 var eye = $('span', '#'+ id);
-                var items = $(('.' + id), '.whiteout');
+                var items = $(('.alert-' + id), '.whiteout');
 
-                var openEye = 'glyphicon-eye-open';
-                var closedEye = 'glyphicon-eye-close';
+                var openEye = 'fa-eye';
+                var closedEye = 'fa-eye-slash';
 
                 if(visible) {
-                    items.removeClass('hide');
+                    items.removeClass('d-none');
                     eye.removeClass(closedEye);
 
                     eye.addClass(openEye);
@@ -105,7 +108,7 @@
                 else {
                     eye.removeClass(openEye);
 
-                    items.addClass('hide');
+                    items.addClass('d-none');
                     eye.addClass(closedEye);
                 }
             }
@@ -135,19 +138,15 @@
         </script>
     </head>
   <body id="REPORT_TEMPLATE">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" role="navigation">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <span class="navbar-brand">Test Results <span id="browser">{{Browser}}</span></a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <div id="refreshToggle" class="pull-right">
-                    <span id="timestamp">{{DateTime_Stamp}}</span>
-                    <button class="btn btn-danger" id="refreshBtn">Disable Refresh</button>
-                </div>
+            <span class="navbar-brand">Test Results <span id="browser">{{Browser}}</span></span>
+            <div id="refreshToggle" class="mt-2 mt-md-0 float-right">
+                <span id="timestamp">{{DateTime_Stamp}}</span>
+                <button class="btn btn-danger" id="refreshBtn">Disable Refresh</button>
             </div>
         </div>
-    </nav>
+    </nav>      
     
     <div class="container-fluid" style="height:100%;">
         <div class="row" style="height:100%;">
@@ -162,30 +161,30 @@
             <div class="col-sm-10" style="padding-top:75px;" id="Overview">
                 <div class="row">
                     <div class="col-sm-2">
-                        <div class="countBox info">
+                        <div class="countBox alert-info">
                             <h2>{{Total_Test_Count}}</h2>
                             Total Tests
                         </div>
                     </div>
                     <div class="col-sm-2 col-sm-offset-1">
-                        <div class="countBox success" id="success">
+                        <div class="countBox alert-success" id="success">
                             <h2>{{Total_Pass_Count}}</h2>
                             Passed Tests
-                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="far fa-eye"></span>
                         </div>
                     </div>
                     <div class="col-sm-2 col-sm-offset-1">
-                        <div class="countBox danger" id="danger">
+                        <div class="countBox alert-danger" id="danger">
                             <h2>{{Total_Fail_Count}}</h2>
                             Failed Tests
-                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="far fa-eye"></span>
                         </div>
                     </div>
                     <div class="col-sm-2 col-sm-offset-1">
-                        <div class="countBox active" id="active">
+                        <div class="countBox alert-active" id="active">
                             <h2>{{Total_Skip_Count}}</h2>
                             Skipped Tests
-                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="far fa-eye"></span>
                         </div>
                     </div>
                 </div>
